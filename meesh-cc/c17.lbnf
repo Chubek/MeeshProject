@@ -1,0 +1,42 @@
+EType
+
+
+
+separator nonempty Exp "," ;
+
+ECall.   Exp6 ::= Ident "(" [Exp] ")"          ;
+
+EInt.    Exp5 ::= Integer   ;
+EChar.   Exp5 ::= Char	    ;
+EDouble. Exp5 ::= Double    ;
+EIdent.  Exp5 ::= Ident     ;
+
+EAnd.    Exp4 ::= Exp4 "&&" Exp5 ;
+EOr.     Exp4 ::= Exp4 "||" Exp5 ;
+
+EPos.    Exp4 ::= "+" Exp5 ;
+ENeg.	 Exp4 ::= "-" Exp5 ;
+EBitNot. Exp4 ::= "~" Exp5 ;
+ENot.    Exp4 ::= "!" Exp5 ;
+
+EBitXor. Exp2 ::= Exp2 "^"  Exp3 ;
+EBitOr.  Exp2 ::= Exp2 "|"  Exp3 ;
+EBitAnd. Exp2 ::= Exp2 "&"  Exp3 ;
+
+EPower.  Exp1 ::= Exp1 "**" Exp2 ;
+EModulo. Exp1 ::= Exp1 "%"  Exp2 ;
+ERound.  Exp1 ::= Exp1 "//" Exp2 ;
+EDivide. Exp1 ::= Exp1 "/"  Exp2 ;
+ETimes.  Exp1 ::= Exp1 "*"  Exp2 ;
+
+EPlus.   Exp  ::= Exp  "+"  Exp1 ;
+EMinus.  Exp  ::= Exp "-"  Exp1 ;
+
+_.       Exp6 ::= "(" Exp ")" ;
+_.       Exp5 ::= Exp6 ;
+_.	 Exp4 ::= Exp5 ;
+_.       Exp3 ::= Exp4 ;
+_.       Exp2 ::= Exp3 ;
+_.       Exp1 ::= Exp2 ;
+_.       Exp  ::= Exp1 ;
+
