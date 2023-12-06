@@ -1,4 +1,12 @@
-Typedef.     Stmt   ::= "typedef" TyDecl ;
+TyStlTyDef.    TyDecl ::= "typedef"   TyDecl	;
+TyStlExtern.   TyDecl ::= "extern"    TyDecl	;
+TyStlStatic.   TyDecl ::= "static"    TyDecl	;
+TyStlAuto.     TyDecl ::= "auto"      TyDecl 	;
+TyStlRegister. TyDecl ::= "register"  TyDecl 	;
+
+TyQualVolatile. TyDecl ::= "volatile" TyDecl	;
+TyQualRestrict.	TyDecl ::= "restrict" TyDecl 	;
+TyQualConst. 	TyDecl ::= "const" TyDecl	;
 
 TyDeclSpec.  TyDecl ::= TySpec Ident	;
 TyDeclId.    TyDecl ::= TyId Ident	;
@@ -25,9 +33,10 @@ _. TySpec1 = TySpec  ;
 separator nonempty EnumDecl   ","       ;
 separator nonempty StructDecl ";"	;
 
-IdUnion.   TyId ::= "union" Ident	;
-IdEnum.    TyId ::= "enum" Ident	;
-iIdStruct. TyId ::= "struct" Ident	;
+TyIdRaw.     TyId ::= Ident		;
+TyIdUnion.   TyId ::= "union" Ident	;
+TyIdEnum.    TyId ::= "enum" Ident	;
+TyIdStruct.  TyId ::= "struct" Ident	;
 
 UniIdent. Union  ::= Union1 Ident	;
 UniAnon.  Union1 ::= "union		;
@@ -49,6 +58,7 @@ EInt.    Exp5 ::= Integer   ;
 EChar.   Exp5 ::= Char	    ;
 EDouble. Exp5 ::= Double    ;
 EIdent.  Exp5 ::= Ident     ;
+EString. Exp6 ::= String    ;
 
 EAnd.    Exp4 ::= Exp4 "&&" Exp5 ;
 EOr.     Exp4 ::= Exp4 "||" Exp5 ;
