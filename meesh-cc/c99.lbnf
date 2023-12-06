@@ -1,6 +1,27 @@
-EType
+TyGroup.    TySpec ::= TySpec1 TySpec  ;
+TyPointer.  TySepc ::= TySpec1 "*"     ;
 
+TyEnum.     TySpec ::= "enum"   [EnumId]     ;
+TyUnion.    TySpec ::= "union"  [StructDecl] ;
+TyStruct.   TySpec ::= "struct" [StructDecl] ;
 
+TyUnsigned. TySpec ::= "unsigned" ;
+TySigned.   TySpec ::= "signed"   ;
+TyDouble.   TySpec ::= "double"   ;
+TyFloat.    TySpec ::= "float"    ;
+TyLong.     TySpec ::= "long"     ;
+TyInt.	    TySpec ::= "int"	  ;
+TyShort.    TySpec ::= "short"    ;
+TyChar.     TySpec ::= "char"	  ;
+TyVoid.     TySpec ::= "void"	  ;
+
+_. TySpec1 = TySpec  ;
+
+separator nonempty EnumId     ","       ;
+separator nonempty StructDecl ";"	;
+
+DEnum.   EnumId     ::= Ident		;
+DStruct. StructDecl ::= TySpec Ident	;
 
 separator nonempty Exp "," ;
 
