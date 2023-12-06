@@ -1,15 +1,40 @@
-TyStlTyDef.    TyDecl ::= "typedef"   TyDecl	;
-TyStlExtern.   TyDecl ::= "extern"    TyDecl	;
-TyStlStatic.   TyDecl ::= "static"    TyDecl	;
-TyStlAuto.     TyDecl ::= "auto"      TyDecl 	;
-TyStlRegister. TyDecl ::= "register"  TyDecl 	;
+StmtDecl.    Stmt1 ::= [Decl]			;
 
-TyQualVolatile. TyDecl ::= "volatile" TyDecl	;
-TyQualRestrict.	TyDecl ::= "restrict" TyDecl 	;
-TyQualConst. 	TyDecl ::= "const" TyDecl	;
+StmtLblDfl.  Stmt1 ::= "default:" Stmt2		;
+StmtLblCase. Stmt1 ::= "case" Expr5 ":" Stmt2 	;
+StmtLblId.   Stmt1 ::= Ident ":" Stmt2		;
 
-TyDeclSpec.  TyDecl ::= TySpec Ident	;
-TyDeclId.    TyDecl ::= TyId Ident	;
+separator nonempty Stmt ";"	;
+
+_. Stmt2 ::= "{" [Stmt] "}"	;
+_. Stmt1 ::= Stmt2		;
+_. Stmt	 ::= Stm1		;
+
+separator nonempty Decl ","	;
+separator nonempty DeclAssn ","    ;
+
+DAssnInit.    DeclAssn1 ::= Ident "=" Expr	;
+DAssnNonInit. DeclAssn  ::= Ident		;
+
+_. DeclAssn1 ::= "(" DeclAssn ")"	;
+_. DeclAssn  ::= DeclAssn1		;
+
+DeclUnit.     Decl ::= Decl [DeclAssn]		;
+DeclInit.     Decl ::= Decl Ident "=" Expr	;
+DeclNonInit.  Decl ::= Decl Ident;
+
+TyStlTyDef.    Decl ::= "typedef"   Decl	;
+TyStlExtern.   Decl ::= "extern"    Decl	;
+TyStlStatic.   Decl ::= "static"    Decl	;
+TyStlAuto.     Decl ::= "auto"      Decl 	;
+TyStlRegister. Decl ::= "register"  Decl 	;
+
+TyQualVolatile. Decl ::= "volatile" Decl	;
+TyQualRestrict.	Decl ::= "restrict" Decl 	;
+TyQualConst. 	Decl ::= "const"    Decl	;
+
+DeclSpec.  Decl ::= TySpec Ident	;
+DeclId.    Decl ::= TyId Ident	;
 
 TyGroup.    TySpec ::= TySpec1 TySpec  ;
 TyPointer.  TySepc ::= TySpec1 "*"     ;
@@ -50,42 +75,44 @@ StuAnon.  Struct1 ::= "struct"		;
 DEnum.   EnumDecl   ::= Ident		;
 DStruct. StructDecl ::= TySpec Ident	;
 
-separator nonempty Exp "," ;
+separator nonempty Expr "," ;
 
-ECall.   Exp6 ::= Ident "(" [Exp] ")"          ;
+ECall.   Expr6 ::= Ident "(" [Expr] ")"          ;
 
-EInt.    Exp5 ::= Integer   ;
-EChar.   Exp5 ::= Char	    ;
-EDouble. Exp5 ::= Double    ;
-EIdent.  Exp5 ::= Ident     ;
-EString. Exp6 ::= String    ;
+EInt.    Expr5 ::= Integer   ;
+EChar.   Expr5 ::= Char	    ;
+EDouble. Expr5 ::= Double    ;
+EIdent.  Expr5 ::= Ident     ;
+EString. Expr6 ::= String    ;
 
-EAnd.    Exp4 ::= Exp4 "&&" Exp5 ;
-EOr.     Exp4 ::= Exp4 "||" Exp5 ;
+EAnd.    Expr4 ::= Expr4 "&&" Expr5 ;
+EOr.     Expr4 ::= Expr4 "||" Expr5 ;
 
-EPos.    Exp4 ::= "+" Exp5 ;
-ENeg.	 Exp4 ::= "-" Exp5 ;
-EBitNot. Exp4 ::= "~" Exp5 ;
-ENot.    Exp4 ::= "!" Exp5 ;
+EPos.    Expr4 ::= "+" Expr5 ;
+ENeg.	 Expr4 ::= "-" Expr5 ;
+EBitNot. Expr4 ::= "~" Expr5 ;
+ENot.    Expr4 ::= "!" Expr5 ;
 
-EBitXor. Exp2 ::= Exp2 "^"  Exp3 ;
-EBitOr.  Exp2 ::= Exp2 "|"  Exp3 ;
-EBitAnd. Exp2 ::= Exp2 "&"  Exp3 ;
+EBitShl. Expr2 ::= Expr2 "<<" Expr3 ;
+EBitShr. Expr2 ::= Expr2 ">>" Expr3 ;
+EBitXor. Expr2 ::= Expr2 "^"  Expr3 ;
+EBitOr.  Expr2 ::= Expr2 "|"  Expr3 ;
+EBitAnd. Expr2 ::= Expr2 "&"  Expr3 ;
 
-EPower.  Exp1 ::= Exp1 "**" Exp2 ;
-EModulo. Exp1 ::= Exp1 "%"  Exp2 ;
-ERound.  Exp1 ::= Exp1 "//" Exp2 ;
-EDivide. Exp1 ::= Exp1 "/"  Exp2 ;
-ETimes.  Exp1 ::= Exp1 "*"  Exp2 ;
+EPower.  Expr1 ::= Expr1 "**" Expr2 ;
+EModulo. Expr1 ::= Expr1 "%"  Expr2 ;
+ERound.  Expr1 ::= Expr1 "//" Expr2 ;
+EDivide. Expr1 ::= Expr1 "/"  Expr2 ;
+ETimes.  Expr1 ::= Expr1 "*"  Expr2 ;
 
-EPlus.   Exp  ::= Exp  "+"  Exp1 ;
-EMinus.  Exp  ::= Exp "-"  Exp1 ;
+EPlus.   Expr  ::= Expr  "+"  Expr1 ;
+EMinus.  Expr  ::= Expr "-"   Expr1 ;
 
-_.       Exp6 ::= "(" Exp ")" ;
-_.       Exp5 ::= Exp6 ;
-_.	 Exp4 ::= Exp5 ;
-_.       Exp3 ::= Exp4 ;
-_.       Exp2 ::= Exp3 ;
-_.       Exp1 ::= Exp2 ;
-_.       Exp  ::= Exp1 ;
+_.       Expr6 ::= "(" Expr ")" ;
+_.       Expr5 ::= Expr6 ;
+_.	 Expr4 ::= Expr5 ;
+_.       Expr3 ::= Expr4 ;
+_.       Expr2 ::= Expr3 ;
+_.       Expr1 ::= Expr2 ;
+_.       Expr  ::= Expr1 ;
 
