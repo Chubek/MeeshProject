@@ -1,9 +1,14 @@
+Typedef.     Stmt   ::= "typedef" TyDecl ;
+
+TyDeclSpec.  TyDecl ::= TySpec Ident	;
+TyDeclId.    TyDecl ::= TyId Ident	;
+
 TyGroup.    TySpec ::= TySpec1 TySpec  ;
 TyPointer.  TySepc ::= TySpec1 "*"     ;
 
-TyEnum.     TySpec ::= "enum"   [EnumId]     ;
-TyUnion.    TySpec ::= "union"  [StructDecl] ;
-TyStruct.   TySpec ::= "struct" [StructDecl] ;
+TyEnum.     TySpec ::= Enum   "{" [EnumDecl]   "}" ;
+TyUnion.    TySpec ::= Union  "{" [StructDecl] "}" ;
+TyStruct.   TySpec ::= Struct "{" [StructDecl] "}" ;
 
 TyUnsigned. TySpec ::= "unsigned" ;
 TySigned.   TySpec ::= "signed"   ;
@@ -17,10 +22,23 @@ TyVoid.     TySpec ::= "void"	  ;
 
 _. TySpec1 = TySpec  ;
 
-separator nonempty EnumId     ","       ;
+separator nonempty EnumDecl   ","       ;
 separator nonempty StructDecl ";"	;
 
-DEnum.   EnumId     ::= Ident		;
+IdUnion.   TyId ::= "union" Ident	;
+IdEnum.    TyId ::= "enum" Ident	;
+iIdStruct. TyId ::= "struct" Ident	;
+
+UniIdent. Union  ::= Union1 Ident	;
+UniAnon.  Union1 ::= "union		;
+
+EnuIdent. Enum   ::= Enum1 Ident	;
+EnuAnon.  Enum1  ::= "enum"		;
+
+StuIdent. Struct  ::= Struct1 Ident     ;
+StuAnon.  Struct1 ::= "struct"		;
+
+DEnum.   EnumDecl   ::= Ident		;
 DStruct. StructDecl ::= TySpec Ident	;
 
 separator nonempty Exp "," ;
